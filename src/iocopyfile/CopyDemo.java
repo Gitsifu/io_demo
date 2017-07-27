@@ -12,8 +12,13 @@ public class CopyDemo {
         File destDir = new File("C:\\Users\\sifu\\Desktop\\text");
         InputStream in = null;
         OutputStream out = null;
-        //找出文件中所有java文件
-        File[] fs = srcDir.listFiles(new FilenameFilter() {
+        //找出文件中所有java文件(使用java1.8 -> lambda表达式)
+        File[] fs = srcDir.listFiles((dir, name) ->
+                new File(dir, name).isFile() && name.endsWith(".java"));
+
+        /*
+        *
+        * File[] fs = srcDir.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
                 if (new File(dir, name).isFile() && name.endsWith(".java")) {
@@ -22,6 +27,7 @@ public class CopyDemo {
                 return false;
             }
         });
+        */
         for (File srcFile : fs) {
             //创建io流对象
             in = new FileInputStream(srcFile);
@@ -34,8 +40,12 @@ public class CopyDemo {
             }
         }
         //关闭资源
-        in.close();
-        out.close();
+        if (in != null) {
+            in.close();
+        }
+        if (out != null) {
+            out.close();
+        }
         //修改拷贝之后的文件的名称
         //为什么只有最后一次迭代才改名成功？  不知道。。。
         File[] copyfs = destDir.listFiles();

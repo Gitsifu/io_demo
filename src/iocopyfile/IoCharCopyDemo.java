@@ -5,14 +5,14 @@ import java.io.*;
 /**
  * Created by sifu on 2017/3/22.
  */
-//适用字符流拷贝文件（纯文本文件）
+//使用字符流拷贝文件（纯文本文件）
 public class IoCharCopyDemo {
     public static void main(String[] args)throws Exception{
         //1.创建源和目标文件
-        File srcFlie = new File("D:\\123.txt");
+        File srcFile = new File("D:\\123.txt");
         File destFile = new File("D:\\123_copy.txt");
         //2.创建输入输出流对象
-        Reader in = new FileReader(srcFlie);
+        Reader in = new FileReader(srcFile);
         Writer out =new FileWriter(destFile);
         //3.io操作
         char[] data = new char[1024];
